@@ -17,12 +17,6 @@ def about():
     return render_template('about.html', title='About')
 
 
-@app.route("/post/<int:post_id>")
-def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title=post.title, post=post)
-
-
 @app.route("/registration_complete")
 def registration_complete():
     return render_template('registration_complete.html', title="Thanks for Registering")
@@ -74,7 +68,8 @@ def post(post_id):
     return render_template('post.html', post=post, comments=comments, form=form)
 
 
-@app.route('/post/<int:post_id>/comment', methods=['GET', 'POST']) @ login_required
+@app.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
+@login_required
 def post_comment(post_id):
     post = Post.query.get_or_404(post_id)
     form = CommentForm()
@@ -86,4 +81,4 @@ def post_comment(post_id):
         return redirect(f'/post/{post.id}')
 
     comments = Comment.query.filter(Comment.post_id == post.id)
-    return render_template('post.html', post=post, comments=comments form=form)
+    return render_template('post.html', post=post, comments=comments, form=form)
