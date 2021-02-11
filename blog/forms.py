@@ -10,27 +10,27 @@ class RegistrationForm(FlaskForm):
     first_name = StringField('First Name(s)', validators=[Length(max=20)])
     last_name = StringField('Last Name(s)', validators=[Length(max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[
-                                     DataRequired(), EqualTo('password')])
-    submit = SubmitField('Register')
+    password = PasswordField('Password', validators=[DataRequired(), Regexp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$', message='Your password should contain at least one uppercase letter, one lowercase letter and one number.')])])
+    confirm_password=PasswordField('Confirm Password', validators = [
+                                     DataRequired(), EqualTo('password', message='Your passwords DO NOT match.')])
+    submit=SubmitField('Register')
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
+    email=StringField('Email', validators = [DataRequired(), Email()])
+    password=PasswordField('Password', validators = [DataRequired()])
+    submit=SubmitField('Login')
 
 
 def validate_user(self, username):
-    user = User.query.filter_by(username=username.data).first()
+    user=User.query.filter_by(username = username.data).first()
     if user is not None:
         raise ValidationError(
             'Username already exists. Please choose a different username.')
 
 
 def validate_email(self, email):
-    user = User.query.filter_by(email=email.data).first()
+    user=User.query.filter_by(email = email.data).first()
     if user is not None:
         raise ValidationError(
             'An account with this email address already exsists.')
