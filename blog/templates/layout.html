@@ -19,6 +19,18 @@
         <a href="{{ url_for('login') }}" class="header">Login</a>&nbsp
         <a href="{{ url_for('register') }}" class="header">Register</a>
         {% endif %}
+
+        <div id="flashes">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ulclass=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+        </div>
     </div>
 
     <div id="content">
