@@ -85,4 +85,5 @@ def post_comment(post_id):
         flash("Your comment has been added to the post", "success")
         return redirect(f'/post/{post.id}')
 
-    comments = Comment.query.filter(Comment.post_id == post.id) return render_template('post.html', post=post, comments=comments form=form)
+    comments = Comment.query.filter(Comment.post_id == post.id)
+    return render_template('post.html', post=post, comments=comments form=form)
