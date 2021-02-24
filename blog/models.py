@@ -28,6 +28,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(60), nullable=False)
     post = db.relationship('Post', backref='user', lazy=True)
     comment = db.relationship('Comment', backref='user', lazy=True)
+    is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
