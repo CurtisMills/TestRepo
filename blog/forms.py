@@ -16,11 +16,10 @@ class RegistrationForm(FlaskForm):
         DataRequired(), EqualTo('password', message='Your passwords DO NOT match.')])
     submit = SubmitField('Register')
 
-    def validate_user(self, username):
+    def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError(
-                'Username already exists. Please choose a different username.')
+            raise ValidationError('Username taken. Please enter a new username.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
