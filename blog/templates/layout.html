@@ -31,6 +31,9 @@
                 {% endif %}
                 {% endwith %}
         </div>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('view_tagged') }}" class="header">Tagged Posts</a>
+        {% endif %}
     </div>
 
     <div id="content">

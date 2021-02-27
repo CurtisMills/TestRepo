@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+{% for tag in tags %}
+<p>"{{ tag.title }}" &nbsp; Author: {{ tag.user.username }}</p>
+
+{% if current_user.has_tagged(tag) %}
+<a href="{{ url_for('post_tag', post_id=tag.id, action='untag') }}">Untag</a>
+{% else %}
+<a href="{{ url_for('post_tag', post_id=tag.id, action='tag') }}">Tag</a>
+{% endif %}
+{% endfor %}
+{% endblock content %}

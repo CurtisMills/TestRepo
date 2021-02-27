@@ -4,6 +4,14 @@
 <p>"{{ post.title }}" &nbsp; Author: {{ post.user.username }}</p>
 <p>{{ post.content }}</p>
 
+{% if current_user.is_authenticated %}
+{% if current_user.has_tagged(post) %}
+<a href="{{ url_for('post_tag', post_id=post.id, action='untag') }}">Untag</a>
+{% else %}
+<a href="{{ url_for('post_tag', post_id=post.id, action='tag') }}">Tag</a>
+{% endif %}
+{% endif %}
+
 {% for comment in comments %}
 <p>"{{ comment.content }}" &nbsp <small>Author: {{ comment.user.username }}</small></p>
 {% endfor %}
@@ -19,5 +27,15 @@
         {{ form.submit() }}
     </div>
 </form>
+
+{% if current_user.is_authenticated %}
+{% if current_user.has_liked(post) %}
+<a href="{{ url_for('post_like', post_id=post.id, action='unlike') }}">Unlike</a>
+{% else %}
+<a href="{{ url_for('post_like', post_id=post.id, action='like') }}">Like</a>
+{% endif %}
+{% endif %}
+
+{{ post.likes.count() }} like(s)
 
 {% endblock content %}

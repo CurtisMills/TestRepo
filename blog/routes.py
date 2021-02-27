@@ -3,6 +3,8 @@ from blog import app, db
 from blog.models import User, Post, Comment
 from blog.forms import RegistrationForm, LoginForm, CommentForm
 from flask_login import login_user, logout_user, login_required, current_user
+from sqlalchemy import or_
+from markupsafe import escape
 
 
 @app.route("/")
@@ -30,6 +32,7 @@ def register():
                     email=form.email.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
+        flash('Registration Successful.')
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
@@ -82,3 +85,43 @@ def post_comment(post_id):
 
     comments = Comment.query.filter(Comment.post_id == post.id)
     return render_template('post.html', post=post, comments=comments, form=form)
+
+@app.route("/search")
+def search():
+
+    keyword = escape(request.form.get("keyword"))
+    posts = Post.query.filter((Post.title.like(f'%{keyword}%'))).all()
+
+    if posts is None:
+        return render_template('home.html')
+
+    return render_template('search.html', title='Search', posts=posts)
+
+@app.route('/like/<int:post_id>/<action>')
+@login_required
+def post_like(post_id, action):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if action == 'like':
+        current_user.like_post(post)
+        db.session.commit()
+    if action == 'unlike':
+        current_user.unlike_post(post)
+        db.session.commit()
+    return redirect(request.referrer)
+
+@app.route('/tag/<int:post_id>/<action>')
+@login_required
+def post_tag(post_id, action):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if action == 'tag':
+        current_user.tag_post(post)
+        db.session.commit()
+    if action == 'untag':
+        current_user.untag_post(post)
+        db.session.commit()
+    return redirect(request.referrer)
+
+@app.route('/tagged_posts')
+@login_required
+def view_tagged():
+    return render_template('tagged_post.html', tags=current_user.view_tagged_posts)

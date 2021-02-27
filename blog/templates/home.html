@@ -7,5 +7,6 @@
     <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
 </a>
 <p>{{ post.content }}</p>
+{{ post.likes.count() }} likes
 {% endfor %}
 {% endblock content %}
