@@ -86,17 +86,6 @@ def post_comment(post_id):
     comments = Comment.query.filter(Comment.post_id == post.id)
     return render_template('post.html', post=post, comments=comments, form=form)
 
-@app.route("/search")
-def search():
-
-    keyword = escape(request.form.get("keyword"))
-    posts = Post.query.filter((Post.title.like(f'%{keyword}%'))).all()
-
-    if posts is None:
-        return render_template('home.html')
-
-    return render_template('search.html', title='Search', posts=posts)
-
 @app.route('/like/<int:post_id>/<action>')
 @login_required
 def post_like(post_id, action):
