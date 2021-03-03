@@ -6,12 +6,12 @@ from blog.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[
-                           DataRequired(), Length(min=3, max=15)])
+                           DataRequired(), Length(min=3, max=15)],  render_kw={"placeholder": "test"})
     first_name = StringField('First Name(s)', validators=[Length(max=20)])
     last_name = StringField('Last Name(s)', validators=[Length(max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Regexp(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$', message='Your password should contain at least one uppercase letter, one lowercase letter and one number.')])
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$', message='Your password should contain at least one uppercase letter, one lowercase letter and one number.')], render_kw={"placeholder": "must contain one lowercase, one uppercase and one number"})
     confirm_password = PasswordField('Confirm Password', validators=[
         DataRequired(), EqualTo('password', message='Your passwords DO NOT match.')])
     submit = SubmitField('Register')
@@ -29,8 +29,8 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Email', render_kw={"placeholder": "Enter Email Address"}, validators=[DataRequired(), Email()])
+    password = PasswordField('Password', render_kw={"placeholder": "Enter Password"}, validators=[DataRequired()])
     submit = SubmitField('Login')
 
 

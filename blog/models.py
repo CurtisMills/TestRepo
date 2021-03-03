@@ -14,6 +14,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     image_file = db.Column(db.String(40), nullable=False,
                            default='default.jpg')
+    description = db.Column(db.Text, nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     likes = db.relationship(
         'Liked',

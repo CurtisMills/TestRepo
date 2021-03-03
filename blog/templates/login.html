@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-<form method="POST" action="">
-    {{ form.csrf_token }}
-    {{ form.email.label }} {{ form.email }}
-    {{ form.password.label }} {{ form.password }}
-    <input type="submit" value="Login">
-</form>
+<div class='login_form'>
+    <img src='static/img/avatar.png' class='avatar'>
+    <h1>Login Here</h1>
+    <form method="POST" action="">
+        {{ form.csrf_token }}
+        {{ form.email.label }} {{ form.email }}
+        {{ form.password.label }} {{ form.password }}
+        <input type="submit" value="Login">
+    </form>
+</div>
+
 {% endblock content %}

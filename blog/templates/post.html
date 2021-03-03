@@ -30,11 +30,14 @@
 </form>
 {% endif %}
 
+
 {% if current_user.is_authenticated %}
 {% if current_user.has_liked(post) %}
-<a href="{{ url_for('post_like', post_id=post.id, action='unlike') }}">Unlike</a>
+<a href="{{ url_for('post_like', post_id=post.id, action='unlike') }}">
+    <img src="{{ url_for('static', filename='img/down.png') }}"></a>
 {% else %}
-<a href="{{ url_for('post_like', post_id=post.id, action='like') }}">Like</a>
+<a href="{{ url_for('post_like', post_id=post.id, action='like') }}"><img
+        src="{{ url_for('static', filename='img/like.png') }}"></a>
 {% endif %}
 {% endif %}
 

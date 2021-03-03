@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if results %}
+{% for result in results %}
+{{ result.title }}
+{% endfor %}
+{% else %}
+No results for {{ search }}
+{% endif %}
+{% endblock content %}

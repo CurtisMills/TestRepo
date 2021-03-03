@@ -10,7 +10,8 @@ from markupsafe import escape
 @app.route("/")
 @app.route("/home")
 def home():
-    posts = Post.query.all()
+
+    posts = Post.query.order_by(Post.date.desc()).limit(3)
     return render_template('home.html', posts=posts)
 
 
@@ -23,6 +24,16 @@ def about():
 def registration_complete():
     return render_template('registration_complete.html', title="Thanks for Registering")
 
+@app.route("/allposts")
+def allposts():
+    sort_by = request.args.get('sortBy')
+    posts = Post.query
+    if sort_by=='ascending':
+        posts = posts.order_by(Post.date.asc()).all()
+    if sort_by=='descending':
+        posts = posts.order_by(Post.date.desc()).all()
+    
+    return render_template('allposts.html', posts=posts)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -67,8 +78,9 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     comments = Comment.query.filter(Comment.post_id == post.id)
     form = CommentForm()
+    image_file = url_for('static', filename='/img')
 
-    return render_template('post.html', post=post, comments=comments, form=form)
+    return render_template('post.html', post=post, comments=comments, form=form, image_file=image_file)
 
 
 @app.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
@@ -114,3 +126,15 @@ def post_tag(post_id, action):
 @login_required
 def view_tagged():
     return render_template('tagged_post.html', tags=current_user.view_tagged_posts)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        form = request.form
+        search_value = form['search_term']
+        search = "%{}%".format(search_value)
+        results = Post.query.filter(Post.title.like(search)|Post.content.like(search)).all()
+        return render_template('search.html', results=results, search=search_value)
+    else: 
+        return redirect('/home')
+
