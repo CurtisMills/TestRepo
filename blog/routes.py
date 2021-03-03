@@ -26,6 +26,7 @@ def registration_complete():
 
 @app.route("/allposts")
 def allposts():
+
     sort_by = request.args.get('sortBy')
     posts = Post.query
     if sort_by=='ascending':

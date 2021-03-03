@@ -32,11 +32,11 @@ a {
 }
 .logo {
     width: 250px;
-    height: 55px;
+    height: 50px;
 
 }
 ul li {
-    padding: 1.6rem;
+    padding: 1.8rem;
     font-weight: bold;
 }
 ul li a:hover {
