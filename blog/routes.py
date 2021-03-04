@@ -11,7 +11,7 @@ from markupsafe import escape
 @app.route("/home")
 def home():
 
-    posts = Post.query.order_by(Post.date.desc()).limit(3)
+    posts = Post.query.order_by(Post.date.desc()).limit(4)
     return render_template('home.html', posts=posts)
 
 
@@ -99,6 +99,8 @@ def post_comment(post_id):
     comments = Comment.query.filter(Comment.post_id == post.id)
     return render_template('post.html', post=post, comments=comments, form=form)
 
+# Ability for users to tag a post
+# Adapted from Miguel's Grinsberg 'Flask Web Development' - Chapter 12
 @app.route('/like/<int:post_id>/<action>')
 @login_required
 def post_like(post_id, action):
@@ -110,7 +112,10 @@ def post_like(post_id, action):
         current_user.unlike_post(post)
         db.session.commit()
     return redirect(request.referrer)
+# end of referenced code. 
 
+# Ability for users to tag a post
+# Adapted from Miguel's Grinsberg 'Flask Web Development' - Chapter 12
 @app.route('/tag/<int:post_id>/<action>')
 @login_required
 def post_tag(post_id, action):
@@ -122,7 +127,10 @@ def post_tag(post_id, action):
         current_user.untag_post(post)
         db.session.commit()
     return redirect(request.referrer)
+# end of referenced code. 
 
+# Code to allow a user to search for tagged posts. 
+# Adapted from YouTube video by Mike Colbert - https://www.youtube.com/watch?v=HXKDyZ_W6rI
 @app.route('/tagged_posts')
 @login_required
 def view_tagged():
@@ -138,4 +146,5 @@ def search():
         return render_template('search.html', results=results, search=search_value)
     else: 
         return redirect('/home')
+# end referenced code. 
 

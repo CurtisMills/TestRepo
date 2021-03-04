@@ -5,55 +5,57 @@
     <meta charset="utf-8">
     <title>My Wonderful Site</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://kit.fontawesome.com/8f2a63e4bb.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <nav id='navigation'>
-        <div class='container'>
-            <div>
-                <ul>
-                    <li><img src="{{ url_for('static', filename='img/logo.png' ) }}" class='logo'></li>
-                    <li><a href="{{ url_for('home') }}">Home</a>&nbsp</li>
-                    <li><a href="{{ url_for('about') }}">About Me</a>&nbsp</li>
-                    <li><a href="{{ url_for('allposts') }}">All Posts</a>&nbsp</li>
-                    <li>
-                        <form method="POST">
-                            <input type='text' name='search_term' placeholder="Blog Post Search">
-                            <input type='submit' formaction='/search' name='Search'>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-            <div class='login-items'>
-                <ul>
-                    <li>
+    <div class='page-container'>
+        <header>
+            <div class='container'>
+
+                <img src="{{ url_for('static', filename='img/logo.png' ) }}" class='logo'>
+
+                <nav>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}" class='navs'>Home</a>&nbsp</li>
+                        <li><a href="{{ url_for('about') }}" class='navs'>About Me</a>&nbsp</li>
+                        <li><a href="{{ url_for('allposts') }}" class='navs'>All Posts</a>&nbsp</li>
+                        <li>
+                            <form method="POST">
+                                <input type='text' name='search_term' placeholder="Blog Post Search">
+                                <input type='submit' formaction='/search' name='Search'>
+                            </form>
+                        </li>
                         {% if current_user.is_authenticated %}
                         <span>Hello, {{ current_user.username }}!</span>
                         {% else %}
                         <span>Hello, Guest!</span>
                         {% endif %}
-                    </li>
-                    <li>
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('view_tagged') }}">Tagged Posts</a>
-                        {% else %}
-                        <a href="{{ url_for('login') }}">Login</a>&nbsp
-                        {% endif %}
-                    </li>
-                    <li>
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('logout') }}">Logout</a>&nbsp
-                        {% else %}
-                        <a href="{{ url_for('register') }}">Register</a>
-                        {% endif %}
-                    </li>
-                </ul>
+                        </li>
+                        <li>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('view_tagged') }}">Tagged Posts</a>
+                            {% else %}
+                            <a href="{{ url_for('login') }}">Login</a>&nbsp
+                            {% endif %}
+                        </li>
+                        <li>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('logout') }}">Logout</a>&nbsp
+                            {% else %}
+                            <a href="{{ url_for('register') }}">Register</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+
             </div>
 
-        </div>
-    </nav>
+        </header>
 
-    <div id="flashes">
+
+
+
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul class=flashes>
@@ -63,11 +65,32 @@
         </ul>
         {% endif %}
         {% endwith %}
-    </div>
 
-    <div id="content">
+
+
         {% block content %}
         {% endblock %}
+
+        <footer class="footer">
+            <div class="innerfooter">
+                <div class="social-links">
+                    <ul>
+                        <!-- Social Media icons for footer -->
+                        <!-- taken from https://fontawesome.com -->
+                        <li class="social-items"><a href='https://github.com/CurtisMills'><i
+                                    class="fab fa-github-square"></i></a></li>
+                        <li class="social-items"><a href='https://www.linkedin.com/in/curtisjmills/'><i
+                                    class="fab fa-linkedin"></i></a></li>
+                        <li class="social-items"><a href='https://www.instagram.com/curtisjmills/'><i
+                                    class="fab fa-instagram"></i></a></li>
+                    </ul>
+                    <!-- end reference -->
+                </div>
+                <div class="outer-footer">
+                    Copyright &copy; Curtis Mills. All Rights Reserved. Blog created for CMT120.
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 

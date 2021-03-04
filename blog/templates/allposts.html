@@ -1,31 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class='content-wrap'>
+    {% for post in posts %}
 
-<a href="{{ url_for('allposts', sortBy='ascending') }}">Date Ascending</a>
-<a href="{{ url_for('allposts', sortBy='descending') }}">Date Descending</a>
-
-{% for post in posts %}
-
-<div class='blog-posts'>
-    <div class='blog-post-image'>
-        <a href="{{ url_for('post', post_id=post.id) }}">
-            <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
-        </a>
-    </div>
-    <div class='blog-info'>
-        <div class='date'>
-            <span>"{{ post.date }}"</span>
+    <article class='article-card'>
+        <figure class='article-image'>
+            <a href="{{ url_for('post', post_id=post.id) }}">
+                <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
+            </a>
+        </figure>
+        <div class="article-content">
+            <p class='card-date'>{{ post.date }}</p>
+            <h3 class='card-title'><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h3>
+            <p class='card-description'>{{ post.description }}<br>by {{ post.user.username }}<br>{{ post.likes.count()
+                }} like(s)</p>
+            <button><a class='link-blog' href="{{ url_for('post', post_id=post.id) }}">Read On</a></button>
         </div>
-        <h1 class='blog-title'>
-            <a href="{{ url_for('post', post_id=post.id) }}">"{{ post.title }}"</a>
-        </h1>
-        <div class='blog-text'>
-            <p class='blog-author'>by {{ post.user.username }}</p>
-            <p class='blog-description'>{{ post.description }}</p>
-            <p class='like-count'>{{ post.likes.count() }} likes</p>
-        </div>
-        <a class='link-blog' href='#'>Read On</a>
-    </div>
+
+    </article>
+
+    {% endfor %}
 </div>
-{% endfor %}
 {% endblock content %}
