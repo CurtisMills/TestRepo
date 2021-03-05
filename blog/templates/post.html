@@ -1,46 +1,58 @@
 {% extends "layout.html" %}
 {% block content %}
-<img src="{{ url_for('static', filename='img/' + post.image_file) }}">
-<p>"{{ post.title }}" &nbsp; Author: {{ post.user.username }}</p>
-<p>{{ post.content }}</p>
+<div class='post-content'>
+    <div class="post-title">
+        <h1>"{{ post.title }}"</h1> &nbsp;
+        <h2>Author: {{ post.user.username }} </h2>
+    </div>
+    <div class="post-image">
+        <img src="{{ url_for('static', filename='img/' + post.image_file) }}">
+    </div>
+    <div class="user-tag-like">
+        {% if current_user.is_authenticated %}
+        {% if current_user.has_tagged(post) %}
+        <button><a href="{{ url_for('post_tag', post_id=post.id, action='untag') }}">Untag</a></button>
+        {% else %}
+        <button><a href="{{ url_for('post_tag', post_id=post.id, action='tag') }}">Tag</a></button>
+        {% endif %}
+        {% endif %}
 
-{% if current_user.is_authenticated %}
-{% if current_user.has_tagged(post) %}
-<a href="{{ url_for('post_tag', post_id=post.id, action='untag') }}">Untag</a>
-{% else %}
-<a href="{{ url_for('post_tag', post_id=post.id, action='tag') }}">Tag</a>
-{% endif %}
-{% endif %}
+        {% if current_user.is_authenticated %}
+        {% if current_user.has_liked(post) %}
+        <button><a href="{{ url_for('post_like', post_id=post.id, action='unlike') }}">
+                Unlike</a></button>
+        {% else %}
+        <button><a href="{{ url_for('post_like', post_id=post.id, action='like') }}">Like</a></button>
+        {% endif %}
+        {% endif %}
+        <p>{{ post.likes.count() }} like(s)</p>
+    </div>
+    <div class='post-contents'>
+        <p>{{ post.content }}</p>
+    </div>
 
-{% for comment in comments %}
-<p>"{{ comment.content }}" &nbsp <small>Author: {{ comment.user.username }}</small></p>
-{% endfor %}
-{% if current_user.is_authenticated %}
-<form method="POST" action="{{ url_for('post_comment', post_id=post.id) }}">
-    {{ form.hidden_tag() }}
-    <div class="">
-        {{ form.comment.label }} {{ form.comment }}
-        {% for error in form.comment.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+    <div class="comment-form">
+        {% if current_user.is_authenticated %}
+        <form method="POST" action="{{ url_for('post_comment', post_id=post.id) }}">
+            {{ form.hidden_tag() }}
+
+            {{ form.comment.label }} {{ form.comment }}
+            {% for error in form.comment.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+
+
+            {{ form.submit() }}
+
+        </form>
+        {% endif %}
+    </div>
+    <div class='user-comments'>
+        {% for comment in comments %}
+        <p class='ind-comment'>"{{ comment.content }}" &nbsp <br><small>Author: {{ comment.user.username }}</small></p>
         {% endfor %}
     </div>
-    <div class="">
-        {{ form.submit() }}
-    </div>
-</form>
-{% endif %}
 
-
-{% if current_user.is_authenticated %}
-{% if current_user.has_liked(post) %}
-<a href="{{ url_for('post_like', post_id=post.id, action='unlike') }}">
-    <img src="{{ url_for('static', filename='img/down.png') }}"></a>
-{% else %}
-<a href="{{ url_for('post_like', post_id=post.id, action='like') }}"><img
-        src="{{ url_for('static', filename='img/like.png') }}"></a>
-{% endif %}
-{% endif %}
-
-{{ post.likes.count() }} like(s)
+</div>
 
 {% endblock content %}

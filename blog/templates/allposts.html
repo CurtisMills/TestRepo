@@ -1,6 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class='allposts-heading'>
+    <h1>All Blog Posts</h1>
+</div>
+<div class='order-buttons'>
+    <button><a href="{{ url_for('allposts', sortBy='ascending') }}">Oldest Post First</a></button>
+    <button><a href="{{ url_for('allposts', sortBy='descending') }}">Newest Post First</a></button>
+</div>
 <div class='content-wrap'>
+
+
     {% for post in posts %}
 
     <article class='article-card'>

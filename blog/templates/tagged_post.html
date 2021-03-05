@@ -1,12 +1,32 @@
 {% extends "layout.html" %}
 {% block content %}
-{% for tag in tags %}
-<p>"{{ tag.title }}" &nbsp; Author: {{ tag.user.username }}</p>
+<div class='tagged-heading'>
+    <h1>Tagged Posts</h1>
+</div>
+<div class='content-wrap'>
+    {% for tag in tags %}
+    <article class='article-card'>
+        <figure class='article-image'>
+            <a href="{{ url_for('post', post_id=tag.id) }}">
+                <img src="{{ url_for('static', filename='img/' + tag.image_file) }}">
+            </a>
+        </figure>
+        <div class="article-content">
+            <p class='card-date'>{{ tag.date }}</p>
+            <h3 class='card-title'><a href="{{ url_for('post', post_id=tag.id) }}">{{ tag.title }}</a></h3>
+            <p class='card-description'>{{ tag.description }}<br>by {{ tag.user.username }}<br>{{
+                tag.likes.count()
+                }} like(s)</p>
+            <button><a class='link-blog' href="{{ url_for('post', post_id=tag.id) }}">Read On</a></button>
+            {% if current_user.has_tagged(tag) %}
+            <button><a href="{{ url_for('post_tag', post_id=tag.id, action='untag') }}">Untag Post</a></button>
+            {% else %}
+            <button><a href="{{ url_for('post_tag', post_id=tag.id, action='tag') }}">Tag Post</a></button>
+            {% endif %}
+        </div>
 
-{% if current_user.has_tagged(tag) %}
-<a href="{{ url_for('post_tag', post_id=tag.id, action='untag') }}">Untag</a>
-{% else %}
-<a href="{{ url_for('post_tag', post_id=tag.id, action='tag') }}">Tag</a>
-{% endif %}
-{% endfor %}
+    </article>
+
+    {% endfor %}
+</div>
 {% endblock content %}

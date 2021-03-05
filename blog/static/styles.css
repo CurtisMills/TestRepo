@@ -1,7 +1,34 @@
 body {
     margin: 0;
     position: relative;
+    background-color: #fffaff;
+    color: #0A2463;
 }
+button {
+    background-color: #0A2463;
+    color: #fffaff;
+    border-radius: 30px;
+    border: none;
+
+}
+button:hover {
+    background-color: #D8315B ;
+    color: #fffaff;
+    border-radius: 30px;
+    border: none;
+
+}
+button a {
+
+    color: #fffaff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    height: 70px;
+    width: 150px;
+}
+
 .page-container {
     position: relative;
     padding-bottom: 150px;
@@ -18,7 +45,7 @@ header::after {
     clear: both;
 }
 header {
-    background: tomato;
+    background: #23B5D3;
 }
 .logo {
     float: left;
@@ -46,19 +73,19 @@ span {
     margin-left: 50px;
 }
 nav a {
-    color: white;
+    color: #fffaff;
     text-decoration: none;
     text-transform: uppercase;
 }
 nav a:hover{
-    color: yellow;
+    color: #0A2463;
 }
 nav a::before {
     content: '';
     display: block;
     height: 5px;
     width: 100%;
-    background-color: yellow;
+    background-color: #0A2463;
     position: absolute;
     top: 0;
     width: 0;
@@ -77,7 +104,7 @@ nav a:hover::before {
 .innerfooter {
     margin: 0;
     padding: 0;
-    background-color: tomato;
+    background-color: #23B5D3;
 }
 .social-links {
     display: flex;
@@ -97,27 +124,27 @@ nav a:hover::before {
 .social-items a {
     padding: 10px 20px;
     font-size: 35px;
-    color: white;
+    color: #fffaff;
     transition: all .25s;
     align-items: center;
 
 }
 .social-items a:hover{
-    color: yellow;
+    color: #D8315B;
 }
 .outer-footer {
     padding: 10px;
     text-align: center;
-    color: white;
+    color: #fffaff;
     font-size: 18px;
-    background-color: violet;
+    background-color: #0A2463;
 }
 
 .login_form {
     width: 320px;
     height:350px;
-    background: #FF9F1C;
-    color: #011627;
+    background: #23B5D3;
+    color: #def2f1;
     top: 50%;
     left: 50%;
     position: absolute;
@@ -126,6 +153,7 @@ nav a:hover::before {
     padding: 70px 30px;
     margin-top: 0;
     margin-bottom: 4em;
+    border-radius: 40px;
 }
 .avatar {
     width:100px;
@@ -167,17 +195,19 @@ nav a:hover::before {
     height: 40px;
     font-size: 14px;
     border-radius: 20px;
+    background-color: #0A2463;
+    color: #fffaff;
 }
 .login_form input[type='submit']:hover {
     cursor: pointer;
-    background: #E71D36 ;
+    background: #D8315B ;
     color: #FDFFFC;
 }
 .register-form {
     width: 450px;
-    height:520px;
-    background: #FF9F1C;
-    color: #011627;
+    height:550px;
+    background: #23B5D3;
+    color: #0A2463;
     top: 30%;
     left: 50%;
     bottom: 30%;
@@ -186,6 +216,7 @@ nav a:hover::before {
     box-sizing: border-box;
     padding: 70px 30px;
     margin-top: 10em;
+    border-radius: 40px;
 }
 .register-form h1 {
     margin: 0;
@@ -211,14 +242,19 @@ nav a:hover::before {
     height: 30px;
     font-size: 18px;
     border-radius: 20px;
+    background-color: #0A2463;
+    color: #fffaff;
 }
-
+.register-form input[type='submit']:hover {
+    cursor: pointer;
+    background: #D8315B ;
+    color: #fffaff;
+}
 .content-wrap {
-    margin: 2rem auto;
-    max-width: calc(100% - 80px);
+    margin: 6rem auto;
+    max-width: 90%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
-    grid-template-rows: 1fr;
     gap: 2rem;
 }
 
@@ -234,13 +270,13 @@ nav a:hover::before {
     
 }
 .article-card {
-    background: red;
+    background: #23B5D3;
+    color: #0A2463;
     border-radius: 20px;
     transition: 0.3s;
-    margin-top: 30%;
 }
 .article-card:hover {
-    box-shadow: 0 4px 20px rgba(34,68,123,0.2);
+    box-shadow: 0 4px 20px rgba(34,68,123,0.4);
     cursor: pointer;
 }
 .article-content {
@@ -256,12 +292,13 @@ nav a:hover::before {
 .article-content.card-title {
     margin: 1rem;
     color: black;
+    text-decoration: none;
 
 }
 .article-content.card-description {
     font-size: 1rem;
     line-height: 1.5rem;
-    color: black;
+    color: #0A2463;
     margin: 0;
 
 }
@@ -279,4 +316,101 @@ nav a:hover::before {
     .content-wrap {
         max-width: 1156px;
     }
+
+}
+.home-heading h1{
+    text-align: center;
+    margin-top: 5rem;
+}
+.allposts-heading h1 {
+    text-align: center;
+    margin-top: 5rem;
+}
+.order-buttons {
+    text-align: center;
+}
+.search-heading h1 {
+    text-align: center;
+    margin-top: 5rem;
+}
+.tagged-heading h1 {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.no-results p{
+    text-align:center; 
+    vertical-align: middle; 
+    font-size: 28px; 
+}
+.post-content h1 {
+    text-align: center;
+    margin-top: 5rem;
+}
+.post-content h2 {
+    text-align: center;
+    margin: 0;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+}
+
+.post-image {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.user-tag-like {
+    margin-top: 3rem;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.post-contents {
+    text-align: center;
+    margin-top: 6rem;
+}
+.comment-form {
+    margin-top: 3rem;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.user-comments p {
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+    margin-right: 1rem;
+    display: inline-block;
+    text-align: center;
+    border: #0A2463 1px solid;
+    height: 100px;
+    width: 500px;
+
+}
+.about-title {
+    text-align: center;
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.me-pic {
+    border-radius: 50%;
+    height: 300px;
+    width: auto;
+
+}
+.my-pic {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.about-info {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 3rem;
 }

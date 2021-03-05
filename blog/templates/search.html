@@ -1,10 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
-{% if results %}
-{% for result in results %}
-{{ result.title }}
-{% endfor %}
-{% else %}
-No results for {{ search }}
+<div class='search-heading'>
+    <h1>Search Results</h1>
+</div>
+<div class='content-wrap'>
+    {% if results %}
+    {% for result in results %}
+    <article class='article-card'>
+        <figure class='article-image'>
+            <a href="{{ url_for('post', post_id=result.id) }}">
+                <img src="{{ url_for('static', filename='img/' + result.image_file) }}">
+            </a>
+        </figure>
+        <div class="article-content">
+            <p class='card-date'>{{ result.date }}</p>
+            <h3 class='card-title'><a href="{{ url_for('post', post_id=result.id) }}">{{ result.title }}</a></h3>
+            <p class='card-description'>{{ result.description }}<br>by {{ result.user.username }}<br>{{
+                result.likes.count()
+                }} like(s)</p>
+            <button><a class='link-blog' href="{{ url_for('post', post_id=result.id) }}">Read On</a></button>
+        </div>
+
+    </article>
+
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% if not results %}
+<div class='no-results'>
+    <p>No results for {{ search }}</p>
+</div>
 {% endif %}
+
 {% endblock content %}
