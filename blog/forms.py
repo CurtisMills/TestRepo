@@ -6,14 +6,14 @@ from blog.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[
-                           DataRequired(), Length(min=3, max=15)],  render_kw={"placeholder": "test"})
-    first_name = StringField('First Name(s)', validators=[Length(max=20)])
-    last_name = StringField('Last Name(s)', validators=[Length(max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+                           DataRequired(), Length(min=3, max=15)],  render_kw={"placeholder": "Please create a username"})
+    first_name = StringField('First Name(s)', render_kw={"placeholder": "Enter first name"}, validators=[Length(max=20)])
+    last_name = StringField('Last Name(s)', render_kw={"placeholder": "Enter last name"}, validators=[Length(max=20)])
+    email = StringField('Email', render_kw={"placeholder": "Enter email address"}, validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired(), Regexp(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$', message='Your password should contain at least one uppercase letter, one lowercase letter and one number.')], render_kw={"placeholder": "must contain one lowercase, one uppercase and one number"})
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$', message='Your password should contain at least one uppercase letter, one lowercase letter')], render_kw={"placeholder": "Must contain: number, uppercase and lowercase"})
     confirm_password = PasswordField('Confirm Password', validators=[
-        DataRequired(), EqualTo('password', message='Your passwords DO NOT match.')])
+        DataRequired(), EqualTo('password', message='Your passwords DO NOT match.')], render_kw={"placeholder": "Re-enter password"})
     submit = SubmitField('Register')
 
     def validate_username(self, username):
