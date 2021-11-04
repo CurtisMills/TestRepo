@@ -34,7 +34,6 @@
     <div class="comment-form">
         {% if current_user.is_authenticated %}
         <form method="POST" action="{{ url_for('post_comment', post_id=post.id) }}">
-            {{ form.hidden_tag() }}
 
             {{ form.comment.label }} {{ form.comment }}
             {% for error in form.comment.errors %}
